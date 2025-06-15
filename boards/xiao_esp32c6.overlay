@@ -2,14 +2,6 @@
     aliases {
         env-sensor = &env_sensor;
     };
-
-    buttons {
-        compatible = "gpio-keys";
-        config_button: button_0 {
-            label = "Config Button";
-            gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
-        };
-    };
 };
 
 &i2c0 {
@@ -19,4 +11,8 @@
         reg = <0x76>;
         label = "BME680";
     };
+};
+
+&wifi {
+    status = "okay";
 };

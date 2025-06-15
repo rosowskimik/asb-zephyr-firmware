@@ -1,0 +1,40 @@
+source "Kconfig.zephyr"
+
+module = APP
+module-str = APP
+
+menu "Application Settings"
+
+    config APP_WIFI_SSID
+        string "WiFi SSID"
+        default "env_sensors"
+        help
+            Service Set Identifier (SSID) of the Wi-Fi network to connect to.
+
+    config APP_WIFI_PASS
+        string "WiFi Passphrase"
+        default "test1234"
+        help
+            Passphrase for Wi-Fi network.
+
+    config APP_SENSOR_ID
+        int "Sensor ID"
+        default 0
+        help
+          A unique identifier for this sensor. This will be used as the
+          MQTT Client ID and in the MQTT topic.
+
+    config APP_READ_INTERVAL
+        int "Sensor Read Interval (seconds)"
+        default 300
+        help
+            The time in seconds the device will sleep between aggregated readings.
+
+    config APP_SAMPLES_PER_READING
+        int "Number of samples to aggregate"
+        default 5
+        help
+            The number of individual sensor measurements to collect before publishing.
+
+endmenu
+
