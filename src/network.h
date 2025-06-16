@@ -3,8 +3,6 @@
 
 #include <zephyr/kernel.h>
 
-void setup_network(void);
-
-void wifi_connect(void);
+int connect_wifi(void);
 
 #endif // _NETWORK_H

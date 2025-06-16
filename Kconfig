@@ -17,6 +17,18 @@ menu "Application Settings"
         help
             Passphrase for Wi-Fi network.
 
+    config APP_MQTT_IP
+        string "MQTT Broker IP address"
+        default "10.20.30.1"
+        help
+            IP address of the MQTT broker.
+
+    config APP_MQTT_PORT
+        int "MQTT Broker port"
+        default "1883"
+        help
+            Port of the MQTT broker.
+
     config APP_SENSOR_ID
         int "Sensor ID"
         default 0
@@ -26,13 +38,13 @@ menu "Application Settings"
 
     config APP_READ_INTERVAL
         int "Sensor Read Interval (seconds)"
-        default 300
+        default 10
         help
             The time in seconds the device will sleep between aggregated readings.
 
     config APP_SAMPLES_PER_READING
         int "Number of samples to aggregate"
-        default 5
+        default 3
         help
             The number of individual sensor measurements to collect before publishing.
 

@@ -83,7 +83,7 @@ static void wifi_mgmt_event_handler(struct net_mgmt_event_callback *cb, uint32_t
 	}
 }
 
-void setup_network(void)
+static void setup_network_cb(void)
 {
 	net_mgmt_init_event_callback(&wifi_cb, wifi_mgmt_event_handler,
 				     NET_EVENT_WIFI_CONNECT_RESULT |
@@ -95,8 +95,10 @@ void setup_network(void)
 	net_mgmt_add_event_callback(&ipv4_cb);
 }
 
-void wifi_connect(void)
+int connect_wifi(void)
 {
+	setup_network_cb();
+
 	struct net_if *iface = net_if_get_default();
 
 	struct wifi_connect_req_params wifi_params = {0};
@@ -115,6 +117,7 @@ void wifi_connect(void)
 	if (net_mgmt(NET_REQUEST_WIFI_CONNECT, iface, &wifi_params,
 		     sizeof(struct wifi_connect_req_params))) {
 		LOG_ERR("WiFi Connection Request Failed");
+		return -ECONNREFUSED;
 	}
 
 	net_dhcpv4_start(iface);
@@ -122,4 +125,6 @@ void wifi_connect(void)
 	k_sem_take(&network_connected, K_FOREVER);
 
 	LOG_INF("WiFi Connected");
+
+	return 0;
 }
